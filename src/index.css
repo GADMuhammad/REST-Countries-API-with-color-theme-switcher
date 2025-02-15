@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ion-icon[name="arrow-back-outline"] {
+  width: 22px;
+  height: 22px;
+}
