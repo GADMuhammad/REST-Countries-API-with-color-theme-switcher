@@ -18,7 +18,7 @@ export default function SearchInput({ setCountriesList }) {
   };
 
   return (
-    <div className="relative flex h-14 w-[480px] shrink items-center rounded-md shadow-one">
+    <div className="max-four:w-full relative flex h-14 w-[480px] shrink items-center rounded-md shadow-one">
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"

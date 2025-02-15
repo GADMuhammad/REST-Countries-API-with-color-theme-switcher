@@ -49,7 +49,7 @@ export default function RegionMenu({ setCountriesList }) {
         input: () => "dark:!text-gray-100",
         singleValue: () => "dark:text-gray-100",
         control: () =>
-          "flex h-12 items-center shadow-one justify-between gap-12 rounded-md !border-none pl-4 pr-2 shadow dark:bg-darkBlue",
+          "flex h-full items-center shadow-one justify-between gap-12 rounded-md !border-none pl-4 pr-2 shadow dark:bg-darkBlue",
         indicatorSeparator: () => "hidden",
         option: () => "hover:text-gray-800",
         menu: () =>

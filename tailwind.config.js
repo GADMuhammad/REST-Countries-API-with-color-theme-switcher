@@ -40,6 +40,14 @@ export default {
       animation: {
         opacity: "opacity 0.3s  forwards ease-in-out",
       },
+
+      screens: {
+        one: "1300px",
+        two: "1190px",
+        three: "930px",
+        four: "860px",
+        five: "580px",
+      },
     },
   },
   plugins: [],

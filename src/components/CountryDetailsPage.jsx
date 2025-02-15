@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import ErrorElement from "./ErrorElement";
+import UseFetchData from "../UseFetchData";
 
 export default function CountryDetailsPage() {
-  const allCountries = JSON.parse(localStorage.getItem("countries")) || [];
-  const country = useParams().country;
+  const { allCountries } = UseFetchData();
+  const { country } = useParams();
 
   const countryData = allCountries.find(
     (c) =>
@@ -62,25 +63,28 @@ export default function CountryDetailsPage() {
     <section key={countryData?.name} className="animate-opacity py-8">
       <Link
         to="/"
-        className="ml-14 flex w-fit items-center justify-center gap-2 rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-3 tracking-wide dark:bg-darkBlue"
+        className="ml-14 flex w-fit items-center justify-center gap-2 rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-3 tracking-wide dark:bg-darkBlue max-lg:mx-auto"
       >
         <ion-icon name="arrow-back-outline" />
         Back to home page
       </Link>
       {countryData ? (
-        <div className="flex items-start justify-between gap-4 px-14 pt-10">
+        <div className="flex items-start justify-evenly gap-20 px-14 pt-10 max-one:px-6 max-lg:flex-col max-lg:gap-6">
           <img
             src={countryData.flags.svg}
             alt={`Flag of ${country}`}
-            className="row-span-full h-[401px] w-[560px] self-start rounded-md"
+            className="h-[401px] w-[560px] self-start rounded-md max-lg:mx-auto"
           />
 
-          <div className="grid w-1/2 grid-cols-2 items-start gap-x-14 gap-y-2 py-8">
+          <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-lg:mx-auto max-lg:py-0">
             <h6 className="col-span-2 mb-4 text-4xl font-bold tracking-wider">
               {countryData.name}
             </h6>
             {CountryDetails.map(({ title, pieceOfInfo }) => (
-              <p key={title} className="text-lg font-semibold">
+              <p
+                key={title}
+                className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
+              >
                 {title}: <span className="font-light">{pieceOfInfo}</span>
               </p>
             ))}
@@ -92,6 +96,7 @@ export default function CountryDetailsPage() {
                   <Link
                     to={`/${country.alpha3Code}`}
                     key={country.name}
+                    onClick={() => window.scroll(0, 0)}
                     className="rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-1 tracking-wide dark:bg-darkBlue"
                   >
                     {country.name}
