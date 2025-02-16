@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 export default function UseFetchData() {
   const allCountries = JSON.parse(localStorage.getItem("countries")) ?? [];
   const [countriesList, setCountriesList] = useState(allCountries);
-  const [situation, setSituation] = useState(
-    allCountries.length ? "fetched" : "loading",
-  );
+  const [situation, setSituation] = useState("loading");
 
   useEffect(() => {
     if (!localStorage.getItem("countries")) {
@@ -17,6 +15,8 @@ export default function UseFetchData() {
           localStorage.setItem("countries", JSON.stringify(data));
         })
         .catch(() => setSituation("error"));
+    } else {
+      setSituation("fetched");
     }
   }, []);
 
