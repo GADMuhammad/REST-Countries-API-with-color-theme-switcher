@@ -71,14 +71,14 @@ export default function CountryDetailsPage() {
         Back to home page
       </Link>
       {countryData ? (
-        <div className="flex items-start justify-evenly gap-20 px-14 pt-10 max-one:px-6 max-lg:flex-col max-lg:gap-6">
+        <div className="flex items-start justify-evenly gap-20 px-14 pt-10 max-one:px-6 max-two:flex-col max-two:gap-6">
           <img
             src={countryData.flags.svg}
             alt={`Flag of ${country}`}
-            className="h-[401px] w-[560px] self-start rounded-md max-lg:mx-auto max-five:h-56 max-five:w-80"
+            className="h-[401px] w-[560px] self-start rounded-md max-two:mx-auto max-five:h-56 max-five:w-80"
           />
 
-          <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-lg:mx-auto max-lg:py-0">
+          <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-two:mx-auto max-two:py-0">
             <h6 className="col-span-2 mb-4 text-4xl font-bold tracking-wider">
               {countryData.name}
             </h6>

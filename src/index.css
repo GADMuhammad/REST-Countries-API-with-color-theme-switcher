@@ -10,3 +10,7 @@ ion-icon[name="arrow-back-outline"] {
   width: 22px;
   height: 22px;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
