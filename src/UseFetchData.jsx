@@ -6,7 +6,7 @@ export default function UseFetchData() {
   const [situation, setSituation] = useState("loading");
 
   useEffect(() => {
-    if (!localStorage.getItem("countries")) {
+    if (!localStorage.getItem("countries")?.length) {
       fetch("/data.json")
         .then((res) => res.json())
         .then((data) => {
