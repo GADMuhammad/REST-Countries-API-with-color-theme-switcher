@@ -9,7 +9,7 @@ export default function UseFetchData() {
 
   useEffect(() => {
     if (!localStorage.getItem("countries")) {
-      fetch("data.json")
+      fetch("/data.json")
         .then((res) => res.json())
         .then((data) => {
           setCountriesList(data);

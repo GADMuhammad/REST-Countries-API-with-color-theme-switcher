@@ -3,7 +3,6 @@ import RegionMenu from "./RegionMenu";
 import SearchInput from "./SearchInput";
 import Loading from "./Loading";
 import ErrorElement from "./ErrorElement";
-// import { useEffect, useState } from "react";
 import UseFetchData from "../UseFetchData";
 
 export default function Home() {
