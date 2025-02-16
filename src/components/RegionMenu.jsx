@@ -12,8 +12,8 @@ const options = [
   { value: "Spanish", label: "Spanish Language" },
   { value: "French", label: "French Language" },
   { value: "Italian", label: "Italian Language" },
-  { value: "€", label: "Euro 💶" },
-  { value: "$", label: "United States Dollar 💸" },
+  { value: "Euro", label: "Euro 💶" },
+  { value: "United States Dollar", label: "United States Dollar 💸" },
 ];
 
 export default function RegionMenu({ setCountriesList }) {
@@ -32,7 +32,8 @@ export default function RegionMenu({ setCountriesList }) {
                 language.name.toLowerCase() === e.value.toLowerCase(),
             ) ||
             country.currencies?.some(
-              (currency) => currency?.symbol === e.value,
+              (currency) =>
+                currency?.name.toLowerCase() === e.value.toLowerCase(),
             ),
         ),
       );

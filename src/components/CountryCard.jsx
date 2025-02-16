@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 export default function CountryCard({ country }) {
   return (
     <Link
+      onClick={() => window.scroll(0, 0)}
       to={`/${country.alpha3Code}`}
       className="h-full w-64 justify-self-center rounded-md bg-white px-3 pb-7 pt-3 shadow-one dark:bg-darkBlue"
     >

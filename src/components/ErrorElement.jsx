@@ -1,12 +1,12 @@
 export default function ErrorElement() {
   return (
-    <section className="flex flex-col gap-1">
+    <section className="flex flex-col items-center gap-1 px-6">
       <svg
         width="416"
         height="344"
         viewBox="0 0 416 344"
         fill="none"
-        className="mx-auto"
+        className="max-five:mt-10 max-five:h-1/2 max-five:w-1/2"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -76,11 +76,11 @@ export default function ErrorElement() {
         />
       </svg>
 
-      <h1 className="mx-auto mb-2 text-3xl">No results found</h1>
-      <p className="mx-auto self-center text-2xl">
+      <h1 className="mb-2 text-3xl max-five:text-xl">No results found</h1>
+      <p className="self-center text-center text-2xl max-five:text-lg">
         We can’t find the country you searched for...
       </p>
-      <p className="mx-auto self-center text-2xl">
+      <p className="self-center text-center text-2xl max-five:text-lg">
         Try to search for another one{" "}
       </p>
     </section>

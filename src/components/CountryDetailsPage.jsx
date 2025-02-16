@@ -29,7 +29,7 @@ export default function CountryDetailsPage() {
       title: "Currencies",
       pieceOfInfo: countryData?.currencies
         ? countryData?.currencies.map((currency) => currency?.name).join(" - ")
-        : "No official currency",
+        : undefined,
     },
     {
       title: "Region",
@@ -37,9 +37,9 @@ export default function CountryDetailsPage() {
     },
     {
       title: "Languages",
-      pieceOfInfo: countryData?.languages
-        .map((language) => language?.name)
-        .join(" - "),
+      pieceOfInfo:
+        countryData?.languages?.map((language) => language?.name).join(" - ") ??
+        undefined,
     },
     {
       title: "Subregion",
@@ -47,11 +47,13 @@ export default function CountryDetailsPage() {
     },
     {
       title: "Area",
-      pieceOfInfo: `${countryData?.area?.toLocaleString()} km square`,
+      pieceOfInfo: countryData?.area
+        ? `${countryData?.area?.toLocaleString()} km square`
+        : undefined,
     },
     {
       title: "Capital",
-      pieceOfInfo: countryData?.capital ?? "No official capital",
+      pieceOfInfo: countryData?.capital,
     },
   ];
 
@@ -73,21 +75,25 @@ export default function CountryDetailsPage() {
           <img
             src={countryData.flags.svg}
             alt={`Flag of ${country}`}
-            className="h-[401px] w-[560px] self-start rounded-md max-lg:mx-auto"
+            className="h-[401px] w-[560px] self-start rounded-md max-lg:mx-auto max-five:h-56 max-five:w-80"
           />
 
           <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-lg:mx-auto max-lg:py-0">
             <h6 className="col-span-2 mb-4 text-4xl font-bold tracking-wider">
               {countryData.name}
             </h6>
-            {CountryDetails.map(({ title, pieceOfInfo }) => (
-              <p
-                key={title}
-                className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
-              >
-                {title}: <span className="font-light">{pieceOfInfo}</span>
-              </p>
-            ))}
+            {CountryDetails.map(({ title, pieceOfInfo }) =>
+              pieceOfInfo ? (
+                <p
+                  key={title}
+                  className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
+                >
+                  {title}: <span className="font-light">{pieceOfInfo}</span>
+                </p>
+              ) : (
+                ""
+              ),
+            )}
 
             {!!borderCountries.length && (
               <div className="col-span-2 mt-10 flex flex-wrap gap-4">
