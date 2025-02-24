@@ -10,6 +10,7 @@ export default function SearchInput({ setCountriesList }) {
         allCountries.filter(
           (country) =>
             country.name.toLowerCase().includes(searchValue) ||
+            country.nativeName.toLowerCase().includes(searchValue) ||
             country.capital?.toLowerCase().includes(searchValue) ||
             country.alpha3Code?.toLowerCase().includes(searchValue),
         ),
@@ -18,7 +19,7 @@ export default function SearchInput({ setCountriesList }) {
   };
 
   return (
-    <div className="max-four:w-full relative flex h-14 w-[480px] shrink items-center rounded-md shadow-one">
+    <div className="relative flex h-14 w-[480px] shrink items-center rounded-md shadow-one max-four:w-full">
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"

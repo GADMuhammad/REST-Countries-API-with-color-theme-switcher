@@ -1080,7 +1080,7 @@
     "demonym": "Bahraini",
     "area": 765,
     "timezones": ["UTC+03:00"],
-    "nativeName": "‏البحرين",
+    "nativeName": "مملكة البحرين",
     "numericCode": "048",
     "flags": {
       "svg": "https://flagcdn.com/bh.svg",
@@ -13151,7 +13151,7 @@
     "area": 2149690,
     "timezones": ["UTC+03:00"],
     "borders": ["IRQ", "JOR", "KWT", "OMN", "QAT", "ARE", "YEM"],
-    "nativeName": "العربية السعودية",
+    "nativeName": "المملكة العربية السعودية",
     "numericCode": "682",
     "flags": {
       "svg": "https://flagcdn.com/sa.svg",

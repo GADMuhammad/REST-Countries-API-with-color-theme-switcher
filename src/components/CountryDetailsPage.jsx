@@ -15,7 +15,7 @@ export default function CountryDetailsPage() {
   const CountryDetails = [
     {
       title: "Native Name",
-      pieceOfInfo: countryData?.name,
+      pieceOfInfo: countryData?.nativeName,
     },
     {
       title: "Top Level Domain",
@@ -75,24 +75,23 @@ export default function CountryDetailsPage() {
           <img
             src={countryData.flags.svg}
             alt={`Flag of ${country}`}
-            className="h-[401px] w-[560px] self-start rounded-md max-two:mx-auto max-five:h-56 max-five:w-80"
+            className="h-[401px] w-[560px] self-start max-two:mx-auto max-five:h-56 max-five:w-80"
           />
 
           <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-two:mx-auto max-two:py-0">
             <h6 className="col-span-2 mb-4 text-4xl font-bold tracking-wider">
               {countryData.name}
             </h6>
-            {CountryDetails.map(({ title, pieceOfInfo }) =>
-              pieceOfInfo ? (
-                <p
-                  key={title}
-                  className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
-                >
-                  {title}: <span className="font-light">{pieceOfInfo}</span>
-                </p>
-              ) : (
-                ""
-              ),
+            {CountryDetails.map(
+              ({ title, pieceOfInfo }) =>
+                pieceOfInfo && (
+                  <p
+                    key={title}
+                    className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
+                  >
+                    {title}: <span className="font-light">{pieceOfInfo}</span>
+                  </p>
+                ),
             )}
 
             {!!borderCountries.length && (
@@ -103,7 +102,7 @@ export default function CountryDetailsPage() {
                     to={`/${country.alpha3Code}`}
                     key={country.name}
                     onClick={() => window.scroll(0, 0)}
-                    className="rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-1 tracking-wide dark:bg-darkBlue"
+                    className="rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-5 py-1 tracking-wide dark:bg-darkBlue max-five:px-3"
                   >
                     {country.name}
                   </Link>

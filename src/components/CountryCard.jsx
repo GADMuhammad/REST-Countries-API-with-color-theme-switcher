@@ -28,10 +28,12 @@ export default function CountryCard({ country }) {
           {country.region}
         </p>
 
-        <p className="flex justify-start gap-2 font-light">
-          <span className="font-semibold">Capital:</span>
-          {country.capital}
-        </p>
+        {country.capital && (
+          <p className="flex justify-start gap-2 font-light">
+            <span className="font-semibold">Capital:</span>
+            {country.capital}
+          </p>
+        )}
       </div>
     </Link>
   );
