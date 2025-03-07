@@ -38,7 +38,7 @@ export default {
       },
 
       animation: {
-        opacity: "opacity 0.3s  forwards ease-in-out",
+        opacity: "opacity 0.23s  forwards ease-in-out",
       },
 
       screens: {

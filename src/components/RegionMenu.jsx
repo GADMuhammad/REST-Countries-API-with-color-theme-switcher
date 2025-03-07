@@ -6,13 +6,21 @@ const options = [
   { value: "Asia", label: "Asia" },
   { value: "Europe", label: "Europe" },
   { value: "Oceania", label: "Oceania" },
+  { value: "Caribbean", label: "Caribbean Countries" },
+  { value: "Northern America", label: "Northern America" },
+  { value: "South America", label: "South America" },
   { value: "Arabic", label: "Arabic Language" },
   { value: "English", label: "English Language" },
   { value: "German", label: "German Language" },
+  { value: "Portuguese", label: "Portuguese Language" },
+  { value: "Russian", label: "Russian Language" },
+  { value: "Chinese", label: "Chinese Language" },
   { value: "Spanish", label: "Spanish Language" },
   { value: "French", label: "French Language" },
   { value: "Italian", label: "Italian Language" },
-  { value: "Euro", label: "Euro 💶" },
+  { value: "British Pound", label: "British Pound 💷" },
+  { value: "Euro", label: "European Euro 💶" },
+  { value: "Australian Dollar", label: "Australian Dollar 💸" },
   { value: "United States Dollar", label: "United States Dollar 💸" },
 ];
 
@@ -27,7 +35,8 @@ export default function RegionMenu({ setCountriesList }) {
         allCountries.filter(
           (country) =>
             country.region === e.value ||
-            country.languages.some(
+            country.subregion === e.value ||
+            country?.languages.some(
               (language) =>
                 language.name.toLowerCase() === e.value.toLowerCase(),
             ) ||

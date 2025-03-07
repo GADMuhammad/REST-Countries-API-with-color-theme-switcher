@@ -10,7 +10,7 @@ export default function CountryCard({ country }) {
       <img
         src={country.flags.svg}
         alt={`The flag of ${country.name}`}
-        className="mb-4 h-40 w-full rounded-md"
+        className="mb-4 h-40 w-full animate-opacity rounded-md"
         loading="lazy"
       />
       <div className="ml-2 flex flex-col gap-2">

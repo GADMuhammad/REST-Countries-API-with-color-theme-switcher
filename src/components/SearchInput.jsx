@@ -12,7 +12,13 @@ export default function SearchInput({ setCountriesList }) {
             country.name.toLowerCase().includes(searchValue) ||
             country.nativeName.toLowerCase().includes(searchValue) ||
             country.capital?.toLowerCase().includes(searchValue) ||
-            country.alpha3Code?.toLowerCase().includes(searchValue),
+            country.alpha3Code?.toLowerCase().includes(searchValue) ||
+            country.currencies?.some((currency) =>
+              currency.name.toLowerCase().includes(searchValue),
+            ) ||
+            country.languages?.some((languages) =>
+              languages.name.toLowerCase().includes(searchValue),
+            ),
         ),
       );
     }

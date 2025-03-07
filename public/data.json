@@ -9666,7 +9666,7 @@
       "United Mexican States",
       "Estados Unidos Mexicanos"
     ],
-    "subregion": "North America",
+    "subregion": "Northern America",
     "region": "Americas",
     "population": 128932753,
     "latlng": [23, -102],
@@ -14796,7 +14796,7 @@
     "currencies": [
       {
         "code": "SYP",
-        "name": "Syrian pound",
+        "name": "Syrian pound (lira)",
         "symbol": "£"
       }
     ],
