@@ -65,7 +65,7 @@ export default function CountryDetailsPage() {
     <section key={countryData?.name} className="animate-opacity py-8">
       <Link
         to="/"
-        className="ml-14 flex w-fit items-center justify-center gap-2 rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-3 tracking-wide dark:bg-darkBlue max-lg:mx-auto"
+        className="ml-14 flex w-fit items-center justify-center gap-2 rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-3 tracking-wide dark:bg-darkBlue max-two:mx-auto"
       >
         <ion-icon name="arrow-back-outline" />
         Back to home page
