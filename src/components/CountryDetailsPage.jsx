@@ -9,7 +9,7 @@ export default function CountryDetailsPage() {
   const countryData = allCountries.find(
     (c) =>
       c.alpha3Code.toLowerCase() === country.toLowerCase() ||
-      c.name.toLowerCase() === country.toLowerCase(),
+      c.name.toLowerCase() === country.toLowerCase()
   );
 
   const CountryDetails = [
@@ -28,7 +28,9 @@ export default function CountryDetailsPage() {
     {
       title: "Currencies",
       pieceOfInfo: countryData?.currencies
-        ? countryData?.currencies.map((currency) => currency?.name).join(" - ")
+        ? countryData?.currencies
+            .map((currency) => `${currency?.name} (${currency?.symbol})`)
+            .join(" - ")
         : undefined,
     },
     {
@@ -58,7 +60,7 @@ export default function CountryDetailsPage() {
   ];
 
   const borderCountries = allCountries.filter((country) =>
-    countryData?.borders?.some((border) => border === country.alpha3Code),
+    countryData?.borders?.some((border) => border === country.alpha3Code)
   );
 
   return (
@@ -70,6 +72,7 @@ export default function CountryDetailsPage() {
         <ion-icon name="arrow-back-outline" />
         Back to home page
       </Link>
+
       {countryData ? (
         <div className="flex items-start justify-evenly gap-20 px-14 pt-10 max-one:px-6 max-two:flex-col max-two:gap-6">
           <img
@@ -91,7 +94,7 @@ export default function CountryDetailsPage() {
                   >
                     {title}: <span className="font-light">{pieceOfInfo}</span>
                   </p>
-                ),
+                )
             )}
 
             {!!borderCountries.length && (
