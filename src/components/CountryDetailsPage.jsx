@@ -7,9 +7,9 @@ export default function CountryDetailsPage() {
   const { country } = useParams();
 
   const countryData = allCountries.find(
-    (country) =>
-      country.alpha3Code.toLowerCase() === country.toLowerCase() ||
-      country.name.toLowerCase() === country.toLowerCase()
+    (c) =>
+      c.alpha3Code.toLowerCase() === country.toLowerCase() ||
+      c.name.toLowerCase() === country.toLowerCase()
   );
 
   const CountryDetails = [
