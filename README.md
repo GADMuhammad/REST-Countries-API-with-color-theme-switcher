@@ -14,8 +14,10 @@ It is a solution to the
 
 - **Country grid** – every country as a card showing its flag, population,
   region and capital, with lazy-loaded flag images and a fade-in on load.
-- **Search** – free-text search that matches on country name, native name,
-  capital, ISO alpha-3 code, currency name or language name.
+- **Fuzzy search** – typo-tolerant, out-of-order search (powered by Fuse.js)
+  over country name, native name, capital, ISO alpha-3 code, currency name and
+  language name; results are ranked by relevance. "gemany" finds Germany,
+  "tokyo" finds Japan.
 - **Region / language / currency filter** – a single dropdown that filters by
   continent (Africa, Asia, Europe, Oceania), sub-region (Caribbean, Northern
   America, South America), spoken language (Arabic, English, French, …) or
@@ -43,6 +45,7 @@ It is a solution to the
 | Routing | React Router 7 (`createBrowserRouter`) |
 | Styling | Tailwind CSS 3, `darkMode: "class"` |
 | Filter control | `react-select` |
+| Fuzzy search | `fuse.js` |
 | Loading indicator | `styled-components` |
 | Fonts / icons | Nunito Sans (Google Fonts), Ionicons |
 | Linting | ESLint 9 (flat config) + Prettier |
@@ -70,11 +73,18 @@ most once per page load. To force a refresh, clear the `countries` key from
 
 ### Filtering
 
-`src/filterCountries.js` is a pure function:
+`src/filterCountries.js` exposes one function (it caches a search index
+internally, but for any given input it returns the same output):
 
 ```js
 filterCountries(countries, { query, category }) => Country[]
 ```
+
+It applies the category selector as an exact match and the search box as a
+fuzzy match: a 2+ character query is run through a memoised Fuse.js index
+(`threshold: 0.3`, weighted keys) and the results come back ranked by
+relevance; a 1-character query falls back to a prefix match; an empty query
+returns the list untouched (alphabetical). The two filters compose (AND).
 
 `Home` owns the `query` and `category` state, and derives the visible list with
 `useMemo`. `SearchInput` and `RegionMenu` are controlled components that only
@@ -105,7 +115,7 @@ refresh.
 | `src/main.jsx` | React entry point |
 | `src/App.jsx` | Router definition |
 | `src/useCountries.js` | Load + cache the dataset; expose `{ countries, status }` |
-| `src/filterCountries.js` | Pure, composable search + category filtering |
+| `src/filterCountries.js` | Composable fuzzy search (Fuse.js) + category filtering |
 | `src/components/Container.jsx` | Shared max-width / horizontal-padding wrapper |
 | `src/components/Header.jsx` | Title bar and theme toggle |
 | `src/components/Home.jsx` | Owns search/category state, renders the grid |

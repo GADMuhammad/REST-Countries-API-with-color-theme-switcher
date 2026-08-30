@@ -1,6 +1,36 @@
-// Pure, composable filtering for the home page. Search text and the
-// region/language/currency selector are applied together (AND), so narrowing
-// one never discards the other.
+import Fuse from "fuse.js";
+
+// Composable filtering for the home page. The category selector and the search
+// box are applied together (AND). The search is fuzzy: it tolerates typos and
+// out-of-order characters ("gemany", "rep congo") and returns the best matches
+// first, ranked by relevance rather than alphabetically.
+
+const fuseOptions = {
+  ignoreLocation: true, // match anywhere in the field, not just near the start
+  threshold: 0.3, // 0 = exact only, 1 = match anything; 0.3 tolerates typos without much noise
+  minMatchCharLength: 2,
+  keys: [
+    { name: "name", weight: 3 },
+    { name: "nativeName", weight: 2 },
+    { name: "capital", weight: 2 },
+    { name: "alpha3Code", weight: 1 },
+    { name: "currencies.name", weight: 1 },
+    { name: "languages.name", weight: 1 },
+  ],
+};
+
+// Build the Fuse index once per dataset (the country list is a stable reference
+// after it loads), not on every keystroke.
+let indexedList = null;
+let fuse = null;
+
+function getFuse(countries) {
+  if (countries !== indexedList) {
+    indexedList = countries;
+    fuse = new Fuse(countries, fuseOptions);
+  }
+  return fuse;
+}
 
 function matchesCategory(country, category) {
   const value = category.toLowerCase();
@@ -12,27 +42,33 @@ function matchesCategory(country, category) {
   );
 }
 
-function matchesQuery(country, query) {
+// Single-character queries are below Fuse's useful minimum, so fall back to a
+// simple prefix match on the most obvious fields.
+function matchesPrefix(country, query) {
   return (
-    country.name?.toLowerCase().includes(query) ||
-    country.nativeName?.toLowerCase().includes(query) ||
-    country.capital?.toLowerCase().includes(query) ||
-    country.alpha3Code?.toLowerCase().includes(query) ||
-    country.currencies?.some((currency) =>
-      currency.name.toLowerCase().includes(query),
-    ) ||
-    country.languages?.some((language) =>
-      language.name.toLowerCase().includes(query),
-    )
+    country.name?.toLowerCase().startsWith(query) ||
+    country.alpha3Code?.toLowerCase().startsWith(query) ||
+    country.capital?.toLowerCase().startsWith(query)
   );
 }
 
 export function filterCountries(countries, { query = "", category = "all" } = {}) {
-  const normalizedQuery = query.trim().toLowerCase();
+  const q = query.trim();
 
-  return countries.filter((country) => {
-    if (category !== "all" && !matchesCategory(country, category)) return false;
-    if (normalizedQuery && !matchesQuery(country, normalizedQuery)) return false;
-    return true;
-  });
+  let result = countries;
+
+  if (q.length === 1) {
+    const lower = q.toLowerCase();
+    result = countries.filter((country) => matchesPrefix(country, lower));
+  } else if (q.length >= 2) {
+    result = getFuse(countries)
+      .search(q)
+      .map((match) => match.item);
+  }
+
+  if (category !== "all") {
+    result = result.filter((country) => matchesCategory(country, category));
+  }
+
+  return result;
 }
