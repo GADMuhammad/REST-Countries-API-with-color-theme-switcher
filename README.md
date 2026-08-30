@@ -88,9 +88,14 @@ plain substring match across the same fields, so single letters work in any
 script; an empty query returns the list untouched (alphabetical). The two
 filters compose (AND).
 
-`Home` owns the `query` and `category` state, and derives the visible list with
+`Home` keeps the `query` and `category` in the URL (`?q=…&region=…`) via
+`useSearchParams` rather than local state, and derives the visible list with
 `useMemo`. `SearchInput` and `RegionMenu` are controlled components that only
-report their value upward – they hold no data of their own.
+report their value upward – they hold no data of their own. Because the filter
+state lives in the URL, it is shareable/bookmarkable and it survives navigating
+to a country detail page and back: the detail page's "Back" button calls
+`navigate(-1)` (falling back to `/` when the page was opened directly), which
+returns to the previous history entry with its query string intact.
 
 ### Theming
 

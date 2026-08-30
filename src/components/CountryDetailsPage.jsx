@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ErrorElement from "./ErrorElement";
 import Loading from "./Loading";
 import Container from "./Container";
@@ -7,6 +7,16 @@ import { useCountries } from "../useCountries";
 export default function CountryDetailsPage() {
   const { countries, status } = useCountries();
   const { country: countryParam } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Go back to the previous history entry so the home page's active filters
+  // (`?q` / `?region`) are restored. Fall back to a plain home navigation when
+  // the detail page was opened directly (shared link, refresh).
+  const goBack = () => {
+    if (location.key === "default") navigate("/");
+    else navigate(-1);
+  };
 
   const countryData = countries.find(
     (c) =>
@@ -56,13 +66,14 @@ export default function CountryDetailsPage() {
       key={countryData?.name}
       className="animate-opacity py-12 sm:py-16"
     >
-      <Link
-        to="/"
+      <button
+        type="button"
+        onClick={goBack}
         className="inline-flex items-center gap-2 rounded bg-white px-8 py-2 text-sm shadow-one transition hover:-translate-y-0.5 hover:shadow-md dark:bg-darkBlue"
       >
         <ion-icon name="arrow-back-outline" />
         Back
-      </Link>
+      </button>
 
       {status === "loading" && <Loading />}
       {status === "error" && <ErrorElement />}
