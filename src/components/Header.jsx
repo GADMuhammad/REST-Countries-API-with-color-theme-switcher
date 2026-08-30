@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Container from "./Container";
 
 function getInitialDarkMode() {
@@ -32,9 +32,16 @@ export default function Header() {
     <>
       <header className="bg-white shadow-one dark:bg-darkBlue">
         <Container className="flex items-center justify-between gap-4 py-6 max-five:flex-col max-five:gap-3">
-          <p className="text-lg font-extrabold tracking-wide sm:text-2xl">
+          {/* Brand doubles as a Home link: `to="/"` also clears any active
+              `?q` / `?region` filters, giving one-click escape from a deep
+              chain of border-country pages. */}
+          <Link
+            to="/"
+            aria-label="Where in the world? — back to home"
+            className="cursor-pointer rounded text-lg font-extrabold tracking-wide transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current sm:text-2xl"
+          >
             Where in the world?
-          </p>
+          </Link>
           <button
             type="button"
             onClick={toggleTheme}

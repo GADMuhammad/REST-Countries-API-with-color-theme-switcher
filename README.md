@@ -112,6 +112,10 @@ value.
   /:country  → <CountryDetailsPage>   matched by alpha-3 code or name
 ```
 
+Following a chain of "Border Countries" links builds up a history stack;
+"Back" walks it one entry at a time, while the header brand (`<Link to="/">`)
+is the one-click escape straight back to the unfiltered home page.
+
 `vercel.json` rewrites all paths to `/` so deep links to `/:country` resolve on
 refresh.
 
@@ -124,7 +128,7 @@ refresh.
 | `src/useCountries.js` | Load + cache the dataset; expose `{ countries, status }` |
 | `src/filterCountries.js` | Composable fuzzy search (Fuse.js) + category filtering |
 | `src/components/Container.jsx` | Shared max-width / horizontal-padding wrapper |
-| `src/components/Header.jsx` | Title bar and theme toggle |
+| `src/components/Header.jsx` | Title bar (brand links Home, clearing filters) and theme toggle |
 | `src/components/Home.jsx` | Owns search/category state, renders the grid |
 | `src/components/SearchInput.jsx` | Controlled search box |
 | `src/components/RegionMenu.jsx` | Controlled `react-select` filter |
