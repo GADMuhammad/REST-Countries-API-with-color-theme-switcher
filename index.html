@@ -27,6 +27,17 @@
     </script>
 
     <title>Around the world</title>
+
+    <!-- Apply the saved colour theme before first paint to avoid a flash. -->
+    <script>
+      try {
+        if (JSON.parse(localStorage.getItem("darkModeCase"))) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {
+        /* ignore unavailable/corrupt storage */
+      }
+    </script>
   </head>
   <body
     class="min-h-screen select-none bg-veryLightGray pb-10 font-nunito text-veryDarkBlueText dark:bg-veryDarkBlueBg dark:text-veryLightGray"

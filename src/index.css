@@ -18,5 +18,12 @@ ion-icon[name="arrow-back-outline"] {
   background-color: hsl(0, 0%, 98%);
 }
 ::-webkit-scrollbar-thumb {
+  background-color: hsl(209, 23%, 22%);
+}
+
+.dark ::-webkit-scrollbar-track {
   background-color: hsl(207, 26%, 17%);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: hsl(0, 0%, 60%);
 }

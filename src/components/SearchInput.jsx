@@ -1,29 +1,4 @@
-export default function SearchInput({ setCountriesList }) {
-  const allCountries = JSON.parse(localStorage.getItem("countries")) || [];
-
-  const filterCountries = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    if (searchValue === "") {
-      setCountriesList(allCountries);
-    } else {
-      setCountriesList(
-        allCountries.filter(
-          (country) =>
-            country.name.toLowerCase().includes(searchValue) ||
-            country.nativeName.toLowerCase().includes(searchValue) ||
-            country.capital?.toLowerCase().includes(searchValue) ||
-            country.alpha3Code?.toLowerCase().includes(searchValue) ||
-            country.currencies?.some((currency) =>
-              currency.name.toLowerCase().includes(searchValue),
-            ) ||
-            country.languages?.some((languages) =>
-              languages.name.toLowerCase().includes(searchValue),
-            ),
-        ),
-      );
-    }
-  };
-
+export default function SearchInput({ value, onChange }) {
   return (
     <div className="relative flex h-14 w-[480px] shrink items-center rounded-md shadow-one max-four:w-full">
       <svg
@@ -38,8 +13,10 @@ export default function SearchInput({ setCountriesList }) {
 
       <input
         type="search"
+        aria-label="Search for a country"
         placeholder="Search for a country..."
-        onChange={filterCountries}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         className="h-full w-full rounded-md border-2 border-transparent bg-inherit px-4 pl-12 text-gray-900 placeholder-gray-400 outline-none transition duration-300 placeholder:text-darkBlue hover:border-veryDarkBlueText focus:border-veryDarkBlueText dark:bg-darkBlue dark:text-veryLightGray dark:placeholder:text-veryLightGray dark:focus:border-veryLightGray"
       />
     </div>

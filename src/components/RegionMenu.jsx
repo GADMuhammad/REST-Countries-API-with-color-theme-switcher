@@ -18,43 +18,22 @@ const options = [
   { value: "Spanish", label: "Spanish Language" },
   { value: "French", label: "French Language" },
   { value: "Italian", label: "Italian Language" },
-  { value: "British Pound", label: "British Pound 💷" },
+  { value: "British pound", label: "British Pound 💷" },
   { value: "Euro", label: "European Euro 💶" },
-  { value: "Australian Dollar", label: "Australian Dollar 💸" },
-  { value: "United States Dollar", label: "United States Dollar 💸" },
+  { value: "Australian dollar", label: "Australian Dollar 💸" },
+  { value: "United States dollar", label: "United States Dollar 💸" },
 ];
 
-export default function RegionMenu({ setCountriesList }) {
-  const allCountries = JSON.parse(localStorage.getItem("countries")) || [];
-
-  const filterCountries = (e) => {
-    if (e.value === "all") {
-      setCountriesList(allCountries);
-    } else {
-      setCountriesList(
-        allCountries.filter(
-          (country) =>
-            country.region === e.value ||
-            country.subregion === e.value ||
-            country?.languages.some(
-              (language) =>
-                language.name.toLowerCase() === e.value.toLowerCase(),
-            ) ||
-            country.currencies?.some(
-              (currency) =>
-                currency?.name.toLowerCase() === e.value.toLowerCase(),
-            ),
-        ),
-      );
-    }
-  };
+export default function RegionMenu({ value, onChange }) {
+  const selected = options.find((option) => option.value === value) ?? options[0];
 
   return (
     <Select
-      defaultValue={options[0]}
+      value={selected}
       options={options}
       isSearchable={false}
-      onChange={filterCountries}
+      aria-label="Filter countries by region, language, or currency"
+      onChange={(option) => onChange(option.value)}
       classNames={{
         input: () => "dark:!text-gray-100",
         singleValue: () => "dark:text-gray-100",
@@ -62,8 +41,7 @@ export default function RegionMenu({ setCountriesList }) {
           "flex h-full items-center shadow-one justify-between gap-12 rounded-md !border-none pl-4 pr-2 shadow dark:bg-darkBlue",
         indicatorSeparator: () => "hidden",
         option: () => "hover:text-gray-800",
-        menu: () =>
-          "bg-gray-100 dark:bg-gray-800 dark:text-gray-100 shadow-one",
+        menu: () => "bg-gray-100 dark:bg-gray-800 dark:text-gray-100 shadow-one",
       }}
     />
   );
