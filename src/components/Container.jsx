@@ -3,7 +3,7 @@
 export default function Container({ as: Tag = "div", className = "", children }) {
   return (
     <Tag
-      className={`mx-auto w-full max-w-[1264px] px-6 sm:px-10 lg:px-16 ${className}`}
+      className={`mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-16 ${className}`}
     >
       {children}
     </Tag>

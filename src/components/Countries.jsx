@@ -2,7 +2,7 @@ import CountryCard from "./CountryCard";
 
 export default function Countries({ countriesList }) {
   return (
-    <section className="grid animate-opacity grid-cols-1 gap-x-10 gap-y-12 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+    <section className="flex animate-opacity flex-wrap justify-center gap-x-8 gap-y-12">
       {countriesList?.map((country) => (
         <CountryCard key={country.alpha3Code} country={country} />
       ))}

@@ -5,7 +5,7 @@ export default function CountryCard({ country }) {
     <Link
       onClick={() => window.scroll(0, 0)}
       to={`/${country.alpha3Code}`}
-      className="flex flex-col overflow-hidden rounded-lg bg-white shadow-one transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:bg-darkBlue"
+      className="flex w-64 shrink-0 flex-col overflow-hidden rounded-lg bg-white shadow-one transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:bg-darkBlue"
     >
       <img
         src={country.flags.svg}

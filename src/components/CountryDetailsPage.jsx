@@ -69,11 +69,11 @@ export default function CountryDetailsPage() {
 
       {status === "ready" &&
         (countryData ? (
-          <div className="mt-14 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="mt-14 grid items-center gap-12 lg:grid-cols-[minmax(0,520px)_1fr] lg:gap-20">
             <img
               src={countryData.flags.svg}
               alt={`Flag of ${countryData.name}`}
-              className="aspect-[3/2] w-full rounded-lg object-cover shadow-one"
+              className="aspect-[3/2] w-full max-w-[520px] rounded-lg object-cover shadow-one"
             />
 
             <div>
