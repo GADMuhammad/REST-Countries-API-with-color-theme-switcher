@@ -106,6 +106,7 @@ refresh.
 | `src/App.jsx` | Router definition |
 | `src/useCountries.js` | Load + cache the dataset; expose `{ countries, status }` |
 | `src/filterCountries.js` | Pure, composable search + category filtering |
+| `src/components/Container.jsx` | Shared max-width / horizontal-padding wrapper |
 | `src/components/Header.jsx` | Title bar and theme toggle |
 | `src/components/Home.jsx` | Owns search/category state, renders the grid |
 | `src/components/SearchInput.jsx` | Controlled search box |

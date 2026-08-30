@@ -4,6 +4,7 @@ import RegionMenu from "./RegionMenu";
 import SearchInput from "./SearchInput";
 import Loading from "./Loading";
 import ErrorElement from "./ErrorElement";
+import Container from "./Container";
 import { useCountries } from "../useCountries";
 import { filterCountries } from "../filterCountries";
 
@@ -18,20 +19,22 @@ export default function Home() {
   );
 
   return (
-    <>
-      <main className="flex justify-between gap-4 px-14 py-10 max-four:flex-col">
+    <Container as="main" className="py-10 sm:py-12">
+      <div className="flex flex-wrap items-center justify-between gap-6">
         <SearchInput value={query} onChange={setQuery} />
         <RegionMenu value={category} onChange={setCategory} />
-      </main>
+      </div>
 
-      {status === "loading" && <Loading />}
-      {status === "error" && <ErrorElement />}
-      {status === "ready" &&
-        (visibleCountries.length ? (
-          <Countries countriesList={visibleCountries} />
-        ) : (
-          <ErrorElement />
-        ))}
-    </>
+      <div className="mt-10">
+        {status === "loading" && <Loading />}
+        {status === "error" && <ErrorElement />}
+        {status === "ready" &&
+          (visibleCountries.length ? (
+            <Countries countriesList={visibleCountries} />
+          ) : (
+            <ErrorElement />
+          ))}
+      </div>
+    </Container>
   );
 }

@@ -2,7 +2,7 @@ import CountryCard from "./CountryCard";
 
 export default function Countries({ countriesList }) {
   return (
-    <section className="max-one:px-10 max-three:px-4 max-four:grid-cols-2 max-five:grid-cols-1 max-two:grid-cols-3 mx-auto grid animate-opacity grid-cols-4 gap-3 gap-y-10 px-28">
+    <section className="grid animate-opacity grid-cols-1 gap-x-10 gap-y-12 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {countriesList?.map((country) => (
         <CountryCard key={country.alpha3Code} country={country} />
       ))}

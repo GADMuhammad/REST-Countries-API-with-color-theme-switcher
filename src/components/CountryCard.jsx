@@ -5,33 +5,30 @@ export default function CountryCard({ country }) {
     <Link
       onClick={() => window.scroll(0, 0)}
       to={`/${country.alpha3Code}`}
-      className="h-full w-64 justify-self-center rounded-md bg-white px-3 pb-7 pt-3 shadow-one dark:bg-darkBlue"
+      className="flex flex-col overflow-hidden rounded-lg bg-white shadow-one transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:bg-darkBlue"
     >
       <img
         src={country.flags.svg}
         alt={`The flag of ${country.name}`}
-        className="mb-4 h-40 w-full animate-opacity rounded-md"
+        className="h-40 w-full object-cover"
         loading="lazy"
       />
-      <div className="ml-2 flex flex-col gap-2">
-        <h2 className="text-start text-lg font-extrabold tracking-wider">
-          {country.name}
-        </h2>
 
-        <p className="flex justify-start gap-2 font-light">
-          <span className="font-semibold">Population:</span>
+      <div className="flex flex-1 flex-col gap-2 px-6 pb-10 pt-6">
+        <h2 className="mb-2 text-lg font-extrabold">{country.name}</h2>
+
+        <p className="text-sm">
+          <span className="font-semibold">Population:</span>{" "}
           {country.population.toLocaleString()}
         </p>
 
-        <p className="flex justify-start gap-2 font-light">
-          <span className="font-semibold">Region:</span>
-          {country.region}
+        <p className="text-sm">
+          <span className="font-semibold">Region:</span> {country.region}
         </p>
 
         {country.capital && (
-          <p className="flex justify-start gap-2 font-light">
-            <span className="font-semibold">Capital:</span>
-            {country.capital}
+          <p className="text-sm">
+            <span className="font-semibold">Capital:</span> {country.capital}
           </p>
         )}
       </div>

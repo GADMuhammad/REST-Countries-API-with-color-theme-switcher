@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import Container from "./Container";
 
 function getInitialDarkMode() {
   try {
@@ -29,20 +30,25 @@ export default function Header() {
 
   return (
     <>
-      <header className="border-b-solid flex justify-between gap-4 border-b border-b-veryDarkBlueText px-14 py-8 shadow-one dark:border-b-veryLightGray max-five:flex-col">
-        <p className="text-2xl font-semibold max-five:mx-auto">
-          Where in the world?
-        </p>
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-pressed={darkMode}
-          aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
-          className="flex items-center justify-center gap-2 border border-solid border-veryDarkBlueText px-2 py-1 tracking-wide dark:border-veryLightGray"
-        >
-          <ion-icon name={darkMode ? "sunny" : "moon-outline"} />
-          {darkMode ? "Light" : "Dark"} Mode
-        </button>
+      <header className="bg-white shadow-one dark:bg-darkBlue">
+        <Container className="flex items-center justify-between gap-4 py-6 max-five:flex-col max-five:gap-3">
+          <p className="text-lg font-extrabold tracking-wide sm:text-2xl">
+            Where in the world?
+          </p>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-pressed={darkMode}
+            aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+            className="flex items-center gap-2 rounded px-2 py-1 text-sm font-semibold transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          >
+            <ion-icon
+              name={darkMode ? "sunny-outline" : "moon-outline"}
+              class="text-base"
+            />
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+        </Container>
       </header>
       <Outlet />
     </>

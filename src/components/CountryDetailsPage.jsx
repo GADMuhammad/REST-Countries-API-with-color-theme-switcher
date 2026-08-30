@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import ErrorElement from "./ErrorElement";
 import Loading from "./Loading";
+import Container from "./Container";
 import { useCountries } from "../useCountries";
 
 export default function CountryDetailsPage() {
@@ -50,13 +51,17 @@ export default function CountryDetailsPage() {
     : [];
 
   return (
-    <section key={countryData?.name} className="animate-opacity py-8">
+    <Container
+      as="section"
+      key={countryData?.name}
+      className="animate-opacity py-12 sm:py-16"
+    >
       <Link
         to="/"
-        className="ml-14 flex w-fit items-center justify-center gap-2 rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-9 py-3 tracking-wide dark:bg-darkBlue max-two:mx-auto"
+        className="inline-flex items-center gap-2 rounded bg-white px-8 py-2 text-sm shadow-one transition hover:-translate-y-0.5 hover:shadow-md dark:bg-darkBlue"
       >
         <ion-icon name="arrow-back-outline" />
-        Back to home page
+        Back
       </Link>
 
       {status === "loading" && <Loading />}
@@ -64,38 +69,41 @@ export default function CountryDetailsPage() {
 
       {status === "ready" &&
         (countryData ? (
-          <div className="flex items-start justify-evenly gap-20 px-14 pt-10 max-one:px-6 max-two:flex-col max-two:gap-6">
+          <div className="mt-14 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <img
               src={countryData.flags.svg}
               alt={`Flag of ${countryData.name}`}
-              className="h-[401px] w-[560px] self-start max-two:mx-auto max-five:h-56 max-five:w-80"
+              className="aspect-[3/2] w-full rounded-lg object-cover shadow-one"
             />
 
-            <div className="grid grid-cols-2 items-start gap-x-14 gap-y-2 py-8 max-two:mx-auto max-two:py-0">
-              <h6 className="col-span-2 mb-4 text-4xl font-bold tracking-wider">
+            <div>
+              <h1 className="mb-6 text-3xl font-extrabold tracking-wide">
                 {countryData.name}
-              </h6>
-              {countryDetails.map(
-                ({ title, value }) =>
-                  value && (
-                    <p
-                      key={title}
-                      className="text-lg font-semibold max-five:col-span-2 max-five:self-center"
-                    >
-                      {title}: <span className="font-light">{value}</span>
-                    </p>
-                  ),
-              )}
+              </h1>
+
+              <dl className="grid gap-x-12 gap-y-2 sm:grid-cols-2">
+                {countryDetails.map(
+                  ({ title, value }) =>
+                    value && (
+                      <p key={title} className="text-sm leading-8">
+                        <span className="font-semibold">{title}:</span>{" "}
+                        <span className="text-darkGray dark:text-veryLightGray">
+                          {value}
+                        </span>
+                      </p>
+                    ),
+                )}
+              </dl>
 
               {!!borderCountries.length && (
-                <div className="col-span-2 mt-10 flex flex-wrap gap-4">
-                  <p className="text-2xl">Border Countries:</p>
+                <div className="mt-10 flex flex-wrap items-center gap-3">
+                  <p className="mr-1 font-semibold">Border Countries:</p>
                   {borderCountries.map((border) => (
                     <Link
                       to={`/${border.alpha3Code}`}
                       key={border.alpha3Code}
                       onClick={() => window.scroll(0, 0)}
-                      className="rounded border border-solid border-veryDarkBlueBg bg-veryLightGray px-5 py-1 tracking-wide dark:bg-darkBlue max-five:px-3"
+                      className="rounded bg-white px-5 py-1 text-sm shadow-one transition hover:-translate-y-0.5 hover:shadow-md dark:bg-darkBlue"
                     >
                       {border.name}
                     </Link>
@@ -107,6 +115,6 @@ export default function CountryDetailsPage() {
         ) : (
           <ErrorElement />
         ))}
-    </section>
+    </Container>
   );
 }

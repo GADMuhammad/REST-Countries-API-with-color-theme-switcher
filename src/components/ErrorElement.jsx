@@ -1,6 +1,6 @@
 export default function ErrorElement() {
   return (
-    <section className="flex flex-col items-center gap-1 px-6">
+    <section className="flex flex-col items-center gap-1 px-6 py-10 text-center">
       <svg
         width="416"
         height="344"
