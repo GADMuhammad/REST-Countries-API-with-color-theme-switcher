@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import Container from "./Container";
 
+const SYSTEM_DARK = "(prefers-color-scheme: dark)";
+
+// No saved choice → follow the operating system's colour scheme.
 function getInitialDarkMode() {
   try {
-    return !!JSON.parse(localStorage.getItem("darkModeCase"));
+    const stored = localStorage.getItem("darkModeCase");
+    if (stored !== null) return !!JSON.parse(stored);
+    return window.matchMedia(SYSTEM_DARK).matches;
+  } catch {
+    return false;
+  }
+}
+
+function hasStoredPreference() {
+  try {
+    return localStorage.getItem("darkModeCase") !== null;
   } catch {
     return false;
   }
@@ -14,6 +27,19 @@ export default function Header() {
   // The `dark` class is already applied (or not) by the inline script in
   // index.html before first paint, so we only mirror that state here.
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+
+  // Until the user makes an explicit choice, keep tracking the OS setting so a
+  // system theme change is reflected live.
+  useEffect(() => {
+    const media = window.matchMedia(SYSTEM_DARK);
+    const onChange = (event) => {
+      if (hasStoredPreference()) return;
+      document.documentElement.classList.toggle("dark", event.matches);
+      setDarkMode(event.matches);
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
 
   const toggleTheme = () => {
     setDarkMode((prev) => {

@@ -28,12 +28,16 @@
 
     <title>Around the world</title>
 
-    <!-- Apply the saved colour theme before first paint to avoid a flash. -->
+    <!-- Apply the colour theme before first paint to avoid a flash.
+         Use the saved choice if there is one, otherwise follow the OS setting. -->
     <script>
       try {
-        if (JSON.parse(localStorage.getItem("darkModeCase"))) {
-          document.documentElement.classList.add("dark");
-        }
+        var stored = localStorage.getItem("darkModeCase");
+        var dark =
+          stored === null
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches
+            : JSON.parse(stored);
+        if (dark) document.documentElement.classList.add("dark");
       } catch (e) {
         /* ignore unavailable/corrupt storage */
       }

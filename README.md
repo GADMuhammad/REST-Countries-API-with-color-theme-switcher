@@ -29,8 +29,9 @@ It is a solution to the
   currencies (with symbols), region, sub-region, languages, area and capital,
   plus buttons for every bordering country that navigate straight to that
   country's detail page.
-- **Light / dark theme** – toggled from the header, persisted in `localStorage`,
-  and applied before first paint so there is no flash on reload.
+- **Light / dark theme** – defaults to the OS setting, overridable from the
+  header, persisted in `localStorage`, and applied before first paint so there
+  is no flash on reload.
 - **Offline-friendly** – the dataset is fetched once and cached in memory and
   `localStorage`; later visits and reloads render instantly with no network.
 - **Responsive** – layout adapts from a four-column grid down to a single column,
@@ -99,10 +100,13 @@ returns to the previous history entry with its query string intact.
 
 ### Theming
 
-`index.html` runs a tiny inline script that adds the `dark` class to
-`<html>` from `localStorage` **before** React mounts, avoiding a light-mode
-flash. `Header` then mirrors that state and toggles the class plus the stored
-value.
+`index.html` runs a tiny inline script that adds the `dark` class to `<html>`
+**before** React mounts, avoiding a flash. It uses the saved `localStorage`
+choice if there is one; otherwise it follows the OS setting
+(`prefers-color-scheme: dark`). `Header` mirrors that initial state, and while
+no explicit choice is stored it keeps tracking the OS setting live via a
+`matchMedia` listener. Toggling writes `darkModeCase` to `localStorage`, which
+pins the choice and stops the OS tracking.
 
 ### Routing
 
