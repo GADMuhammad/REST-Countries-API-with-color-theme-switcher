@@ -42,13 +42,22 @@ function matchesCategory(country, category) {
   );
 }
 
-// Single-character queries are below Fuse's useful minimum, so fall back to a
-// simple prefix match on the most obvious fields.
-function matchesPrefix(country, query) {
+// Single-character queries are below Fuse's useful minimum (and a 1-char fuzzy
+// match would be meaningless anyway), so fall back to a plain substring match
+// across the same fields Fuse indexes. This keeps 1-letter searches working for
+// every script, e.g. a single Arabic letter matching a country's native name.
+function matchesSubstring(country, query) {
   return (
-    country.name?.toLowerCase().startsWith(query) ||
-    country.alpha3Code?.toLowerCase().startsWith(query) ||
-    country.capital?.toLowerCase().startsWith(query)
+    country.name?.toLowerCase().includes(query) ||
+    country.nativeName?.toLowerCase().includes(query) ||
+    country.capital?.toLowerCase().includes(query) ||
+    country.alpha3Code?.toLowerCase().includes(query) ||
+    country.currencies?.some((currency) =>
+      currency.name.toLowerCase().includes(query),
+    ) ||
+    country.languages?.some((language) =>
+      language.name.toLowerCase().includes(query),
+    )
   );
 }
 
@@ -59,7 +68,7 @@ export function filterCountries(countries, { query = "", category = "all" } = {}
 
   if (q.length === 1) {
     const lower = q.toLowerCase();
-    result = countries.filter((country) => matchesPrefix(country, lower));
+    result = countries.filter((country) => matchesSubstring(country, lower));
   } else if (q.length >= 2) {
     result = getFuse(countries)
       .search(q)

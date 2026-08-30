@@ -83,8 +83,10 @@ filterCountries(countries, { query, category }) => Country[]
 It applies the category selector as an exact match and the search box as a
 fuzzy match: a 2+ character query is run through a memoised Fuse.js index
 (`threshold: 0.3`, weighted keys) and the results come back ranked by
-relevance; a 1-character query falls back to a prefix match; an empty query
-returns the list untouched (alphabetical). The two filters compose (AND).
+relevance; a 1-character query (below Fuse's useful minimum) falls back to a
+plain substring match across the same fields, so single letters work in any
+script; an empty query returns the list untouched (alphabetical). The two
+filters compose (AND).
 
 `Home` owns the `query` and `category` state, and derives the visible list with
 `useMemo`. `SearchInput` and `RegionMenu` are controlled components that only
